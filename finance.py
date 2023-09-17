@@ -1,5 +1,6 @@
 import requests
 from randommer import Randommer
+from pprint import pprint
 
 class Finance(Randommer):
     def get_crypto_address_types(self, api_key: str) -> list:
@@ -11,7 +12,13 @@ class Finance(Randommer):
         Returns:
             list: list of types
         '''
-        pass
+        url=f"{self.get_url()}Finance/CryptoAddress/Types"
+        headers={
+            "X-Api-Key":api_key
+        }
+        
+        response=requests.get(url,headers=headers)
+        return response.json()  
 
     def get_crypto_address(self, crypto_type: str, api_key: str) -> dict:
         '''get available crypto address
@@ -23,7 +30,15 @@ class Finance(Randommer):
         Returns:
             dict: crypto address
         '''
-        pass
+        url=f"{self.get_url()}Finance/CryptoAddress"
+        headers={
+            "X-Api-Key":api_key
+        }
+        parameters={
+            "cryptoType":'Bitcoinplus'
+        }
+        response=requests.get(url,params=parameters,headers=headers)
+        return response.json()
 
     def get_countries(self, api_key: str) -> list:
         '''get available countries
@@ -34,7 +49,12 @@ class Finance(Randommer):
         Returns:
             list: crypto address
         '''
-        pass
+        url=f"{self.get_url()}Finance/Countries"
+        headers={
+            "X-Api-Key":api_key
+        }
+        response=requests.get(url,headers=headers)
+        return response.json()
 
     def get_iban_by_country_code(self, country_code: str, api_key: str) -> dict:
         '''get available countries
@@ -46,4 +66,14 @@ class Finance(Randommer):
         Returns:
             dict: idan data
         '''
-        pass
+        url=f"{self.get_url()}Finance/CryptoAddress/Types"
+        headers={
+            "X-Api-Key":api_key
+        }
+        parametrs={
+            'countryCode':'LB'
+        }
+        response=requests.get(url,params=parametrs,headers=headers)
+        return response.json()
+o=Finance()
+pprint(o.get_iban_by_country_code("","64fd8245b648443a9aea0fbd8ce5a9ae"))
