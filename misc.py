@@ -1,6 +1,6 @@
 import requests
 from randommer import Randommer
-
+from pprint import pprint
 
 class Misc(Randommer):
     def get_cultures(self, api_key: str) -> list:
@@ -12,7 +12,12 @@ class Misc(Randommer):
         Returns:
             list: list of cultures
         '''
-        pass
+        url=f"{self.get_url()}Misc/Cultures"
+        headers={
+            "X-Api-Key":api_key
+        }
+        response=requests.get(url,headers=headers)
+        return response.json()
     
     def get_random_address(self, api_key: str, number: int, culture='en') -> list:
         '''get available misc cultures
@@ -25,4 +30,12 @@ class Misc(Randommer):
         Returns:
             list: random address
         '''
-        pass
+        url=f"{self.get_url()}Misc/Random-Address?number=33&culture=en"
+        headers={
+            "X-Api-Key":api_key
+        }
+        response=requests.get(url,headers=headers)
+        return response.json()
+
+o=Misc()
+pprint(o.get_random_address("64fd8245b648443a9aea0fbd8ce5a9ae",33,"en"))
